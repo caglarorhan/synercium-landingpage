@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synercium - The Harvest Ground of Synergy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Logo */
+        .logo {
+            margin-bottom: 30px;
+            animation: logoEntrance 2s ease-out;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            border: 8px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        .logo-letter {
+            font-size: 60px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            z-index: 2;
+            position: relative;
+        }
+
+        @keyframes logoEntrance {
+            0% {
+                transform: scale(0) rotate(180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(0deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            50% {
+                transform: rotate(45deg) translateX(100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+
+        /* Title */
+        .title {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.4);
+            }
+            100% {
+                text-shadow: 0 0 50px rgba(255, 255, 255, 1), 0 0 100px rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        /* Motto */
+        .motto {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 50px;
+            font-style: italic;
+            letter-spacing: 2px;
+            animation: fadeInUp 2s ease-out 0.5s both;
+        }
+
+        /* Description */
+        .description {
+            max-width: 800px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 50px;
+            animation: fadeInUp 2s ease-out 1s both;
+        }
+
+        /* Features grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin-top: 50px;
+            margin-bottom: 80px;
+            animation: fadeInUp 2s ease-out 1.5s both;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .feature p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .motto {
+                font-size: 1.4rem;
+            }
+
+            .description {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+
+            .logo-circle {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo-letter {
+                font-size: 40px;
+            }
+
+            .features {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                margin-top: 40px;
+            }
+        }
+
+        /* Pulse effect on logo */
+        .logo-circle {
+            animation: logoEntrance 2s ease-out, logoPulse 4s ease-in-out 2s infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 0 20px rgba(255, 255, 255, 0);
+            }
+        }
+
+        /* Copyright footer */
+        .copyright-footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            z-index: 20;
+        }
+
+        .copyright-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .copyright-link:hover {
+            color: rgba(255, 255, 255, 1);
+            text-decoration: underline;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(50px);
+            transition: transform 0.3s ease;
+            color: #333;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .modal-body {
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .modal-body h3 {
+            color: #667eea;
+            font-weight: 600;
+            margin: 25px 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .modal-body ul {
+            margin: 15px 0 15px 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .contact-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: #333;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .understand-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .understand-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-circle">
+                <span class="logo-letter">S</span>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="title">Synercium</h1>
+
+        <!-- Motto -->
+        <p class="motto">The Harvest Ground of Synergy</p>
+
+        <!-- Description -->
+        <div class="description">
+            <p>
+                Welcome to Synercium, where collaboration meets innovation. Our comprehensive project management 
+                platform empowers teams to work together seamlessly, turning individual efforts into collective 
+                achievements. Experience the power of true synergy as you manage tasks, track progress, 
+                and harvest the fruits of coordinated teamwork.
+            </p>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">📊</span>
+                <h3>Dashboard Overview</h3>
+                <p>Get a comprehensive view of all your projects, tasks, and team performance with real-time insights and analytics.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📁</span>
+                <h3>Project Management</h3>
+                <p>Organize and track your projects with intuitive tools designed for maximum efficiency and clarity.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✅</span>
+                <h3>Task Management</h3>
+                <p>Break down complex projects into manageable tasks with priority levels, deadlines, and progress tracking.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">👥</span>
+                <h3>Team Collaboration</h3>
+                <p>Bring your team together with seamless communication and shared workspaces that foster creativity.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">�</span>
+                <h3>Actions & Automation</h3>
+                <p>Streamline workflows with intelligent automation and customizable action sequences to boost productivity.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📈</span>
+                <h3>Progress Tracking</h3>
+                <p>Monitor your journey with detailed step-by-step progress tracking and milestone management.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⏰</span>
+                <h3>Timeline Management</h3>
+                <p>Visualize project timelines, deadlines, and dependencies with interactive Gantt charts and calendar views.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📦</span>
+                <h3>Resource Management</h3>
+                <p>Manage and track all your project resources, assets, and materials in one centralized location.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🌐</span>
+                <h3>Team Connections</h3>
+                <p>Build and maintain professional networks with integrated connection management and communication tools.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📊</span>
+                <h3>Reports & Analytics</h3>
+                <p>Generate comprehensive reports and gain valuable insights with advanced analytics and data visualization.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚙️</span>
+                <h3>Customization</h3>
+                <p>Tailor the platform to your needs with flexible settings, custom workflows, and personalized dashboards.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔒</span>
+                <h3>Security & Privacy</h3>
+                <p>Enterprise-grade security with role-based access control, data encryption, and comprehensive audit trails.</p>
+            </div>
+        </div>
+
+        <!-- Copyright Footer -->
+        <div class="copyright-footer">
+            <a href="#" class="copyright-link" onclick="openCopyrightModal()">
+                © 2025 Synercium. All Rights Reserved.
+            </a>
+        </div>
+    </div>
+
+    <!-- Copyright Modal -->
+    <div id="copyrightModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeCopyrightModal()">&times;</button>
+            
+            <div class="modal-header">
+                <h2 class="modal-title">Synercium Software License & Copyright</h2>
+                <p class="modal-subtitle">Proprietary Software - All Rights Reserved</p>
+            </div>
+
+            <div class="modal-body">
+                <h3>Copyright Notice</h3>
+                <p>
+                    Copyright © 2025 Synercium Corporation. All rights reserved worldwide. This software and all associated 
+                    documentation files (the "Software") are the exclusive property of Synercium Corporation.
+                </p>
+
+                <h3>Proprietary License</h3>
+                <p>
+                    This Software is licensed, not sold. This is a proprietary software product protected by copyright laws 
+                    and international treaty provisions. No part of this Software may be reproduced, distributed, transmitted, 
+                    transcribed, stored in a retrieval system, or translated into any human or computer language, in any form 
+                    or by any means, electronic, mechanical, magnetic, optical, chemical, manual, or otherwise, without the 
+                    express written permission of Synercium Corporation.
+                </p>
+
+                <h3>Restrictions</h3>
+                <p>You are explicitly prohibited from:</p>
+                <ul>
+                    <li>Copying, reproducing, or duplicating the Software</li>
+                    <li>Reverse engineering, decompiling, or disassembling the Software</li>
+                    <li>Modifying, adapting, or creating derivative works</li>
+                    <li>Distributing, sublicensing, or transferring the Software</li>
+                    <li>Removing or altering any proprietary notices or labels</li>
+                    <li>Using the Software for any commercial purpose without explicit written consent</li>
+                </ul>
+
+                <h3>Intellectual Property</h3>
+                <p>
+                    All intellectual property rights, including but not limited to copyrights, patents, trademarks, 
+                    trade secrets, and any other proprietary rights in the Software remain exclusively with 
+                    Synercium Corporation. The name "Synercium" and the motto "The Harvest Ground of Synergy" 
+                    are registered trademarks of Synercium Corporation.
+                </p>
+
+                <h3>Disclaimer of Warranties</h3>
+                <p>
+                    THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. SYNERCIUM CORPORATION DISCLAIMS 
+                    ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF 
+                    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+                </p>
+
+                <h3>Limitation of Liability</h3>
+                <p>
+                    IN NO EVENT SHALL SYNERCIUM CORPORATION BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+                    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE 
+                    THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+                </p>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>Synercium Corporation</strong></p>
+                    <p>Austin, Texas, USA</p>
+                    <p>Email: <a href="mailto:synercium@gmail.com" style="color: #667eea;">synercium@gmail.com</a></p>
+                    <p><em>For licensing inquiries, legal matters, or permission requests</em></p>
+                </div>
+
+                <p style="font-size: 0.9em; color: #666; text-align: center; margin-top: 20px;">
+                    <strong>This license is governed by the laws of the State of Texas, USA.</strong><br>
+                    Any violation of these terms may result in severe civil and criminal penalties.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="understand-button" onclick="closeCopyrightModal()">
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Particle system
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDuration = duration + 's';
+                
+                // Random delay
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = delay + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Mouse movement parallax effect
+        function initParallax() {
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                const logo = document.querySelector('.logo-circle');
+                const title = document.querySelector('.title');
+                
+                if (logo) {
+                    const moveX = (mouseX - 0.5) * 20;
+                    const moveY = (mouseY - 0.5) * 20;
+                    logo.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                }
+                
+                if (title) {
+                    const moveX = (mouseX - 0.5) * 10;
+                    const moveY = (mouseY - 0.5) * 10;
+                    title.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                }
+            });
+        }
+
+        // Intersection Observer for animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.feature').forEach(feature => {
+                observer.observe(feature);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initParallax();
+            initScrollAnimations();
+        });
+
+        // Copyright modal functions
+        function openCopyrightModal() {
+            const modal = document.getElementById('copyrightModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCopyrightModal() {
+            const modal = document.getElementById('copyrightModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('copyrightModal');
+            if (e.target === modal) {
+                closeCopyrightModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCopyrightModal();
+            }
+        });
+
+        // Add click effect to logo
+        document.addEventListener('DOMContentLoaded', () => {
+            const logo = document.querySelector('.logo-circle');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    logo.style.animation = 'none';
+                    setTimeout(() => {
+                        logo.style.animation = 'logoEntrance 1s ease-out, logoPulse 4s ease-in-out 1s infinite';
+                    }, 100);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
